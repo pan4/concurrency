@@ -10,7 +10,7 @@ public class Main {
         thread.start();
 
         for (int i = 0; i < COUNT; i++) {
-            Participant p = new Participant(conference, " Participant " + i);
+            Participant p = new Participant(conference, "Participant " + i);
             Thread t = new Thread(p);
             t.start();
         }

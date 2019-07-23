@@ -1,22 +1,15 @@
 package com.dataart.task2.locks;
 
-import com.dataart.utils.SysUtil;
-
 public class Job implements Runnable {
 
+    private final Printer printer;
+
+    public Job(Printer printer) {
+        this.printer = printer;
+    }
 
     @Override
     public void run() {
-        System.out.printf("%s: Going to print a document\n", Thread.currentThread().getName());
-        workProcess();
-        System.out.printf("%s: The document has been printed\n", Thread.currentThread().getName());
+        printer.workProcess();
     }
-
-
-    private void workProcess() {
-        int duration = (int) (Math.random() * 10);
-        System.out.println(Thread.currentThread().getName() + ":PrintQueue: Printing a Job during " + duration + " seconds");
-        SysUtil.sleep(duration);
-    }
-
 }
