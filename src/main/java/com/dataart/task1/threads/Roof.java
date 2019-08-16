@@ -5,26 +5,25 @@ import java.util.concurrent.TimeUnit;
 public class Roof extends Part {
 
     public Roof(){
-        this(null);
+        this(null, null);
     }
 
-    public Roof(Part antecedent){
-        super(antecedent);
+    public Roof(Part previous, Part next){
+        super(previous, next);
     }
 
     @Override
-    protected void build() {
+    protected void build() throws InterruptedException {
         int timeout = (int)Math.rint(Math.random() * 10);
         System.out.println("Building roof... " + timeout + " sec remaining");
-        try {
-            TimeUnit.SECONDS.sleep(timeout);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+
+        TimeUnit.SECONDS.sleep(timeout);
+
+        System.out.println("Roof has been built");
     }
 
     @Override
     protected void finish() {
-        System.out.println("Thread 3 roof has been built");
+        System.out.println(String.format("Roof was integrated in %s sec after start", elapsedTime));
     }
 }

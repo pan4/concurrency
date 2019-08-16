@@ -13,15 +13,17 @@ public class Producer1 implements Runnable {
 
     @Override
     public void run() {
-        System.out.println("ProducerBlocking1 Started 1");
+        System.out.println("ProducerBlocking1 Started");
         try {
             while (true) {
                 queue.put(seed);
-                Thread.sleep(100);
+                System.out.println(String.format("ProducerBlocking1 put %d value in the queue", seed));
+                Thread.sleep(500);
                 seed += 2;
             }
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            Thread.currentThread().interrupt();
+            throw new RuntimeException(e);
         }
     }
 }

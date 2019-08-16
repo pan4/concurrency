@@ -9,6 +9,10 @@ public class SynchronizeCounter extends Counter {
         counter++;
     }
 
+    /**
+     * Yes, getValue should be synchronized. Otherwise, a thread could be working with a outdated value.
+     * Alternatively we can mark counter as volatile.
+    */
     @Override
     synchronized public int getValue() {
         return counter;

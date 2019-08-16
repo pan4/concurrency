@@ -47,7 +47,7 @@ public class MaximumFinder extends RecursiveTask<Integer> {
         try {
             pool.awaitTermination(1, TimeUnit.DAYS);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
@@ -64,7 +64,7 @@ public class MaximumFinder extends RecursiveTask<Integer> {
             try {
                 result = t1.get() >= t2.get() ? t1.get() : t2.get();
             } catch (InterruptedException | ExecutionException e) {
-                e.printStackTrace();
+                throw new RuntimeException(e);
             }
         }
         return result;

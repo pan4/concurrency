@@ -2,6 +2,7 @@ package com.dataart.task2.atomic;
 
 import com.dataart.task2.atomic.counters.AtomicCounter;
 import com.dataart.task2.atomic.counters.Counter;
+import com.dataart.task2.atomic.counters.LongAdderCounter;
 import com.dataart.task2.atomic.counters.SynchronizeCounter;
 import com.dataart.task2.atomic.counters.SynchronizeThisCounter;
 import com.dataart.task2.atomic.counters.UnsafeCounter;
@@ -15,11 +16,12 @@ public class Main {
     private static long endTime;
 
     public static void main(String[] args) {
-        test(new AtomicCounter());
         test(new SynchronizeCounter());
-        test(new SynchronizeThisCounter());
-        test(new UnsafeCounter());
-        test(new VolatileCounter());
+        test(new AtomicCounter());
+        test(new LongAdderCounter());
+//        test(new SynchronizeThisCounter());
+//        test(new UnsafeCounter());
+//        test(new VolatileCounter());
     }
 
 
@@ -40,7 +42,8 @@ public class Main {
             try {
                 thread[i].join();
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                Thread.interrupted();
+                throw new RuntimeException(e);
             }
         }
 

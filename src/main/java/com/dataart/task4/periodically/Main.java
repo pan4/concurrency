@@ -13,13 +13,21 @@ public class Main {
 
     public static void main(String[] args)  {
         ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
+        /**
+         * scheduleAtFixedRate executes a task with the given period while scheduleWithFixedDelay executes
+         * it with the given delay between the termination of one execution and the commencement of the next.
+         * Description of course task says that alarm action must be called every 5 seconds thus I use
+         * scheduleAtFixedRate method
+         */
         executor.scheduleAtFixedRate(new PeriodicallyTask("alert system"),0, DELAY, TimeUnit.SECONDS);
         SysUtil.sleep(25);
         executor.shutdown();
         try {
-            executor.awaitTermination(1, TimeUnit.DAYS);
+            if(executor.awaitTermination(1, TimeUnit.DAYS)){
+                executor.shutdownNow();
+            }
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 

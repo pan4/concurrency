@@ -15,11 +15,12 @@ public class Consumer implements Runnable {
         System.out.println("Consumer Started");
         try {
             while (true) {
-                System.out.println(queue.take());
-                Thread.sleep(50);
+                System.out.println(String.format("Consumer took %d value from the queue", queue.take()));
+                Thread.sleep(300);
             }
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            Thread.currentThread().interrupt();
+            throw new RuntimeException(e);
         }
     }
 

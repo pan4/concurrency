@@ -21,7 +21,8 @@ public class VideoConference implements Runnable {
         try {
             controller.await();
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            Thread.currentThread().interrupt();
+            throw new RuntimeException(e);
         }
         System.out.println("Conference is starting ...");
     }

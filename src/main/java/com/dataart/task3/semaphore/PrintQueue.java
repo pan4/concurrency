@@ -19,7 +19,8 @@ public class PrintQueue {
                     Thread.currentThread().getName(),duration);
             SysUtil.sleep(duration);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            Thread.currentThread().interrupt();
+            throw new RuntimeException(e);
         } finally {
             semaphore.release();
         }

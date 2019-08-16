@@ -1,7 +1,7 @@
 package com.dataart.task3.cyclicbarrier;
 
 
-import com.dataart.utils.SysUtil;
+import java.util.concurrent.TimeUnit;
 
 public class Printer implements Runnable {
 
@@ -15,7 +15,16 @@ public class Printer implements Runnable {
 
     public void run() {
         while (true) {
-            SysUtil.sleepRandom(2, 9);
+            int timeout = (int)Math.rint(Math.random() * 10);
+            try {
+                TimeUnit.SECONDS.sleep(timeout);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                throw new RuntimeException(e);
+            }
+            if (printQueue.getCurrentNumber() == printQueue.getTotalNumber()){
+                return;
+            }
             printQueue.recharge(name);
         }
     }

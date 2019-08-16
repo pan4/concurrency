@@ -6,7 +6,7 @@ import java.util.concurrent.Callable;
 public class Task implements Callable<String> {
 
     public String call() throws Exception {
-        System.out.println("Spaceship has launched " + new Date());
+        System.out.println("Spaceship has launched at " + new Date());
         return new Date().toString();
     }
 
