@@ -45,9 +45,11 @@ public class MaximumFinder extends RecursiveTask<Integer> {
         pool.submit(task);
         pool.shutdown();
         try {
-            pool.awaitTermination(1, TimeUnit.DAYS);
+            if(!pool.awaitTermination(1, TimeUnit.MINUTES)){
+                pool.shutdownNow();
+            }
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            pool.shutdownNow();
         }
     }
 

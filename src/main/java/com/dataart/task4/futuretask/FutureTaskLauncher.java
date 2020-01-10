@@ -29,14 +29,23 @@ public class FutureTaskLauncher {
              */
             List<Future<String>> futures = executor.invokeAll(spaceCrafts);
             for (Future<String> future : futures) {
-                System.out.println(future.get());
+                try {
+                    System.out.println(future.get());
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
             }
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        } finally {
             executor.shutdown();
-            if(executor.awaitTermination(1, TimeUnit.DAYS)){
+            try {
+                if(!executor.awaitTermination(1, TimeUnit.MINUTES)){
+                    executor.shutdownNow();
+                }
+            } catch (InterruptedException e) {
                 executor.shutdownNow();
             }
-        } catch (InterruptedException | ExecutionException e) {
-            throw new RuntimeException(e);
         }
     }
 

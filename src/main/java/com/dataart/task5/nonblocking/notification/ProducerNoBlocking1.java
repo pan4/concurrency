@@ -1,4 +1,4 @@
-package com.dataart.task5.nonblocking;
+package com.dataart.task5.nonblocking.notification;
 
 import java.util.Queue;
 import java.util.concurrent.locks.Condition;

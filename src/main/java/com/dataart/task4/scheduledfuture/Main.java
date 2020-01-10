@@ -17,11 +17,11 @@ public class Main {
         executor.schedule(new Task(), DELAY, TimeUnit.SECONDS);
         executor.shutdown();
         try {
-            if(executor.awaitTermination(1, TimeUnit.MINUTES)){
+            if(!executor.awaitTermination(1, TimeUnit.MINUTES)){
                 executor.shutdownNow();
             }
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            executor.shutdownNow();
         }
     }
 

@@ -23,11 +23,11 @@ public class Main {
         SysUtil.sleep(25);
         executor.shutdown();
         try {
-            if(executor.awaitTermination(1, TimeUnit.DAYS)){
+            if(!executor.awaitTermination(1, TimeUnit.MINUTES)){
                 executor.shutdownNow();
             }
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            executor.shutdownNow();
         }
     }
 
